@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Octopress博客,我来啦"
+date: 2013-04-13 00:18
+comments: true
+categories: 
+---
+
+Here we go.
+
+折腾这么久,终于在Windows下有一个还算是比较好的写博客的方案了.
+Github Pages & Octopress的确是很给力,但在windows下各种各样的问题,比如安装个
+RubyInstaller总是失败啥的.还有在cygwin中使用的时候总是不方便.
+
+还是不行啊
+
