@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: JavaScript | 禁区弧顶的挨踢男]]></title>
+  <link href="http://nkwsqyyzx.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://nkwsqyyzx.github.io/"/>
+  <updated>2013-09-03T21:55:05+08:00</updated>
+  <id>http://nkwsqyyzx.github.io/</id>
+  <author>
+    <name><![CDATA[圣西罗小球童]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用https重新打开当前网页]]></title>
+    <link href="http://nkwsqyyzx.github.io/blog/2013/05/20/open-current-url-with-https/"/>
+    <updated>2013-05-20T00:38:00+08:00</updated>
+    <id>http://nkwsqyyzx.github.io/blog/2013/05/20/open-current-url-with-https</id>
+    <content type="html"><![CDATA[<p>由于众所周知的原因,使用Google搜索的时候搜索结果可能会被阻断.这种情况在https下面可能会稍稍好一些.如果你不幸中招,可以使用https再试一下.</p>
+
+<p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.比较麻烦的是Vimperator官方的插件文档好像并不是很容易找到.反正我是没有找到啦.</p>
+
+<p>以下是相关代码,还是比较简单的.
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (OpenWithHttps.js)</span> <a href='/downloads/code/OpenWithHttps.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">commands</span><span class="p">.</span><span class="nx">addUserCommand</span> <span class="p">(</span><span class="s2">&quot;OpenWithHttps&quot;</span><span class="p">,</span> <span class="s2">&quot;open url with https&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">URL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;https:&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">httpsUrl</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^http:/</span><span class="p">,</span><span class="s2">&quot;https:&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">openURL</span><span class="p">(</span><span class="nx">httpsUrl</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nx">liberator</span><span class="p">.</span><span class="nx">echo</span><span class="p">(</span><span class="s2">&quot;Current is https,perhaps you would try proxy.&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* vim:se sts=4 sw=4 et: */</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>拿到当前buffer的URL,将URL替换为https后重新打开.</p>
+
+<p>当然,如果在你的vimperatorrc中加上
+<code>
+:map ,s :OpenWithHttps&lt;CR&gt;
+</code>
+使用起来就更加得心应手了.</p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+</feed>

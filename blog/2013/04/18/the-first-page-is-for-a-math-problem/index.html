@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>若干苹果的分装问题 - 禁区弧顶的挨踢男</title>
+  <meta name="author" content="圣西罗小球童">
+
+  
+  <meta name="description" content="考虑这样一个问题:店家有127个苹果,若干箱子,问如何将苹果装入最少的箱子使得第一个来购买苹果的人无论买多少个都可以整箱交给他.进一步的,说明需要多少个箱子以及每个箱子装入多少个苹果才能满足要求. 这个问题本身带有明确的暗示性,当然也就显得比较简单了.在面试这种不需要严格证明的情况下很容易得出结果 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nkwsqyyzx.github.io/blog/2013/04/18/the-first-page-is-for-a-math-problem">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="禁区弧顶的挨踢男" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">禁区弧顶的挨踢男</a></h1>
+  
+    <h2>new fish on the way.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nkwsqyyzx.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">若干苹果的分装问题</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T19:42:00+08:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>考虑这样一个问题:店家有127个苹果,若干箱子,问如何将苹果装入最少的箱子使得第一个来购买苹果的人无论买多少个都可以整箱交给他.进一步的,说明需要多少个箱子以及每个箱子装入多少个苹果才能满足要求.</p>
+
+<p>这个问题本身带有明确的暗示性,当然也就显得比较简单了.在面试这种不需要严格证明的情况下很容易得出结果.那就是按照1,2,4,8,16,32,64的装法就可以满足要求.在不需要严格逻辑推理下能感觉这就是答案.事实上的确是的.</p>
+
+<h4>更普遍的问题:n个苹果怎么装呢?</h4>
+
+<p>设A(n)为n个苹果分装所需要的箱子数目,序列B(n)(1),B(n)(2),&#8230;B(n)(A(n))为每个箱子中的苹果数目.首先来看几个比较小的n:<br/>
+n=1,A(1) = 1.只需要一个箱子.<br/>
+n=2,A(2) = 2.需要2个箱子每个箱子装1个.<br/>
+n=3,A(3) = 2.需要2个箱子,一个箱子1个,另一个2个.<br/>
+n=4,A(4) = 3.需要3个箱子,一个箱子装2个,另外两个每个箱子装1个.<br/>
+n=5,A(5) = 3.需要3个箱子,一个箱子装3个,另外两个箱子每个装1个.<br/></p>
+
+<p>自然的,考虑找到一个递推关系,设n个苹果满足条件需要的箱子数为A(n),则有如下结论:</p>
+
+<pre><code>A(n+1) &gt;= A(n).(1)
+</code></pre>
+
+<p>采用反证法容易证明.(若存在小于A(n)的箱子能满足A(n+1)的要求,任意购买小于等于n的个数也能有这种分装方法解决.这与A(n)的定义是矛盾的.)</p>
+
+<p>但是,得出(1)这个结论对于问题一点突破性的进展都没有!</p>
+
+<p>换一种常用的分治思路就会发现,只要解决了n个苹果的分装问题,2n个苹果的分装只需要简单的再加一个箱子,这个箱子装入n个苹果就可以满足2n个苹果的分装要求.而且这种分装方法为解决2n个苹果的分装问题的一个解决办法.</p>
+
+<p>下面给出证明:<br/>
+由于对于任意的正整数k&lt;=n,都存在一个B序列的子列满足该子列和为k.那么对于任意的m&lt;=2n有如下两种情况:<br/>
+1. m&lt;=n,直接有B序列的子列满足子列和为k.如果购买m个直接由对应的箱子满足要求.<br/>
+2. m>n,则存在B序列的子列满足子列和为m-n,这样把这个子列和n放在一起构成一个新的子列,则新子列和为m.这样这些箱子满足要求.<br/>
+另一方面,必然有A(2n)>A(n),这是因为由于需要满足n个苹果的购买方案,2n的分装方案的箱子序列必然包含n的分装方案.否则无法解决n个苹果的购买.但n个苹果的方案中每个箱子里苹果个数都小于n.要购买m>n个苹果时必然需要另一个大于等于n个苹果的箱子.也就是必然有</p>
+
+<pre><code>A(2n)&gt;A(n).(2)
+</code></pre>
+
+<p>这样综合上面1和2,对于已有的n个苹果的解决方案B(1),B(2),&#8230;B(A(n)),再加上一个装n个苹果的箱子就构成2n个苹果的解决方案.且该方案为最少箱子数的解决方案.(由(1)有A(2n)>=A(2n-1)&#8230;>=A(n))得出:</p>
+
+<pre><code>A(2n) = A(n) + 1.(3)
+</code></pre>
+
+<p>由A(1) = 1及(2)式可以计算出:</p>
+
+<pre><code>A(2^n) = n + 1.(4)
+</code></pre>
+
+<p>这样有:</p>
+
+<pre><code>n+1 = A(2^n)&lt;=A(2^n+1)&lt;=A(2^+2)&lt;=...&lt;=A(2^n+2^n)&lt;A(2^(n+1)) = n + 2.(5)
+</code></pre>
+
+<p>其中最后一个小于号由(2)得到结论.<br/>
+综合上述得到关于A(n)的结论:</p>
+
+<pre><code>A(n) = k,当2^(k-1) &lt;= n &lt;2^k;
+</code></pre>
+
+<p>回过头来看(3)式的推理过程,只要有了n个苹果的分装方案,再加一个装n+1个苹果的箱子就构成2n+1个苹果的方案.所以使用计算机很容易得出序列B.下面是伪代码,采用递归方式实现.</p>
+
+<pre><code>void OutPut(int k)
+{
+    if (k == 1)
+    {
+        print "1";
+        return;
+    }
+    if (k % 2 == 1)
+    {
+        print (k/2+1) . " ";
+    }
+    else
+    {
+        print (k/2) . " ";
+    }
+    OutPut(k/2);
+}
+</code></pre>
+
+<p>第一次写这种博客,且很久没有做数学方面的推理,逻辑思维难免混乱.请看官多指教.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">圣西罗小球童</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T19:42:00+08:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/er-jin-zhi/'>二进制</a>, <a class='category' href='/blog/categories/shu-xue/'>数学</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_douban">豆瓣</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a class="jiathis_button_sdonote">麦库</a>
+    <a class="jiathis_button_linkedin">LinkedIn</a>
+    <a class="jiathis_button_renren">人人网</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a href="http://www.jiathis.com/share?uid=1779174" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+    var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1352281432546357" charset="utf-8">
+</script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1779174" async=""></script>
+<!-- UY END -->
+
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/15/why-not-working/" title="Previous Post: why not working?">&laquo; why not working?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/09/octopress-work-in-windows8/" title="Next Post: 在Windows8中再次折腾Octopress">在Windows8中再次折腾Octopress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>关于我</h1>
+  <p>IT男 数学 爱开源 爱米兰</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/20/open-current-url-with-https/">使用https重新打开当前网页</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/code-highlight/">代码高亮</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/09/octopress-work-in-windows8/">在Windows8中再次折腾Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/18/the-first-page-is-for-a-math-problem/">若干苹果的分装问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/15/why-not-working/">why not working?</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - 圣西罗小球童 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

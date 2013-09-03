@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Windows | 禁区弧顶的挨踢男]]></title>
+  <link href="http://nkwsqyyzx.github.io/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://nkwsqyyzx.github.io/"/>
+  <updated>2013-09-03T21:55:05+08:00</updated>
+  <id>http://nkwsqyyzx.github.io/</id>
+  <author>
+    <name><![CDATA[圣西罗小球童]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[代码高亮]]></title>
+    <link href="http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight/"/>
+    <updated>2013-05-15T21:09:00+08:00</updated>
+    <id>http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight</id>
+    <content type="html"><![CDATA[<p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.当然还需要注意的是Python一定要在Path路径下</strong></p>
+
+<p>先来一段JavaScript高亮示例(使用3个反`):
+```javascript JavaScript代码</p>
+
+<pre><code>var s = "this is javascript test string.";
+alert(s);
+</code></pre>
+
+<p>```
+Objc代码(使用codeblock):
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>objective-c代码 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">print:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">string</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span><span class="n">string</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>遗憾的是现在软件中的markdown编辑器都不支持代码高亮预览功能.</p>
+
+<p>下面引入一段包含在文件中的C#代码:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (testcode.cs)</span> <a href='/downloads/code/testcode.cs'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nn">Test</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">interface</span> <span class="n">TestInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'>        <span class="c1">/// interface introduction</span>
+</span><span class='line'>        <span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'>        <span class="c1">/// &lt;param name=&quot;stream&quot;&gt;the stream to store data.&lt;/param&gt;</span>
+</span><span class='line'>        <span class="c1">/// &lt;param name=&quot;data&quot;&gt;the data to store.&lt;/param&gt;</span>
+</span><span class='line'>        <span class="k">void</span> <span class="nf">Test</span><span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span><span class="p">,</span> <span class="n">T</span> <span class="n">data</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+以上就是加入代码高亮最常用的3中方法.其中3个反`看起来更简洁明了.codeblock方式更适合阅读.使用文件方式引入则适合大段代码插入.</p>
+]]></content>
+  </entry>
+  
+</feed>
