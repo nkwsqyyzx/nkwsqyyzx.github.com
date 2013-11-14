@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | 禁区弧顶的挨踢男]]></title>
   <link href="http://nkwsqyyzx.github.io/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://nkwsqyyzx.github.io/"/>
-  <updated>2013-09-03T21:55:05+08:00</updated>
+  <updated>2013-11-14T16:11:26+08:00</updated>
   <id>http://nkwsqyyzx.github.io/</id>
   <author>
     <name><![CDATA[圣西罗小球童]]></name>
@@ -18,7 +18,7 @@
     <link href="http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight/"/>
     <updated>2013-05-15T21:09:00+08:00</updated>
     <id>http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight</id>
-    <content type="html"><![CDATA[<p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.当然还需要注意的是Python一定要在Path路径下</strong></p>
+    <content type="html"><![CDATA[<p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.</strong></p>
 
 <p>先来一段JavaScript高亮示例(使用3个反`):
 ```javascript JavaScript代码</p>
