@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | 禁区弧顶的挨踢男]]></title>
   <link href="http://nkwsqyyzx.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://nkwsqyyzx.github.io/"/>
-  <updated>2013-11-14T16:11:26+08:00</updated>
+  <updated>2013-11-19T13:43:54+08:00</updated>
   <id>http://nkwsqyyzx.github.io/</id>
   <author>
     <name><![CDATA[圣西罗小球童]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Fuck The Great Fucking Wall]]></title>
+    <link href="http://nkwsqyyzx.github.io/blog/2013/11/19/fuck-the-great-fucking-wall/"/>
+    <updated>2013-11-19T13:16:00+08:00</updated>
+    <id>http://nkwsqyyzx.github.io/blog/2013/11/19/fuck-the-great-fucking-wall</id>
+    <content type="html"><![CDATA[<p>参考上一篇文章<a href="/blog/2013/05/20/open-current-url-with-https/">使用https重新打开当前网页</a>，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。</p>
+
+<p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.再次吐槽下Vimperator Script的开发文档是那么那么的不全。</p>
+
+<p>在测试过程中你可以在Vimperator的normal模式下输入如下命令进行调试：</p>
+
+<p><code>bash
+:js liberator.echo('');
+</code>
+总之是比较苦逼的工作。各种查看网页元素之后，确定了在网页中有errorTitleText的标签元素就初步认为是被阻断的url的简单思路。然后使用正则表达式判断当前的url是否满足被阻断url的特征，如果满足则使用https替换当前url重新打开。</p>
+
+<p>以下是相关代码,还是比较简单的.
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (ReloadWithHttps.js)</span> <a href='/downloads/code/ReloadWithHttps.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">commands</span><span class="p">.</span><span class="nx">addUserCommand</span> <span class="p">(</span><span class="s2">&quot;ReloadWithHttps&quot;</span><span class="p">,</span> <span class="s2">&quot;reload url with https&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">tabs</span><span class="p">.</span><span class="nx">getTab</span><span class="p">(</span><span class="nx">args</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">linkedBrowser</span><span class="p">.</span><span class="nx">contentDocument</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">let</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;errorTitleText&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">target</span><span class="p">){</span>
+</span><span class='line'>        <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">URL</span><span class="p">;</span>
+</span><span class='line'>        <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="sr">/^http:\/\/www\.google\.com.+url\?.+url=/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="kd">let</span> <span class="nx">httpsUrl</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^http:/</span><span class="p">,</span><span class="s2">&quot;https:&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">liberator</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">httpsUrl</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="cm">/* vim:se sts=4 sw=4 et: */</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>自定义命令完成之后，在你的vimperatorrc中加入如下自动命令配置就可以向GFW阻断google搜索结果说拜拜了：
+<code>bash
+autocmd DOMLoad .* ReloadWithHttps &lt;tab&gt;
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用https重新打开当前网页]]></title>
