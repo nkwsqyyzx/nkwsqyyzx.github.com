@@ -10,6 +10,7 @@ categories: GFW https Vimperator plugin JavaScript
 
 基于[Vimperator](http://www.vimperator.org/vimperator)可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.比较麻烦的是Vimperator官方的插件文档好像并不是很容易找到.反正我是没有找到啦.
 
+<!--more-->
 
 以下是相关代码,还是比较简单的.
 {% include_code lang:javascript OpenWithHttps.js %}

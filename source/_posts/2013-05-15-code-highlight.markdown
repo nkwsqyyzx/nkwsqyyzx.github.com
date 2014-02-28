@@ -6,6 +6,7 @@ comments: true
 categories: octopress 高亮 Windows
 ---
 
+<!--more-->
 Windows系统需要注意的是,**Python只能使用2.7的版本.**
 
 先来一段JavaScript高亮示例(使用3个反\`):

@@ -8,6 +8,7 @@ categories: GFW https Vimperator plugin JavaScript
 
 参考上一篇文章[使用https重新打开当前网页](/blog/2013/05/20/open-current-url-with-https/)，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。
 
+<!--more-->
 
 基于[Vimperator](http://www.vimperator.org/vimperator)可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.再次吐槽下Vimperator Script的开发文档是那么那么的不全。
 
