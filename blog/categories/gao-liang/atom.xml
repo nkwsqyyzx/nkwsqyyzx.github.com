@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 高亮 | 禁区弧顶的挨踢男]]></title>
   <link href="http://nkwsqyyzx.github.io/blog/categories/gao-liang/atom.xml" rel="self"/>
   <link href="http://nkwsqyyzx.github.io/"/>
-  <updated>2013-11-19T13:43:54+08:00</updated>
+  <updated>2014-02-28T05:05:50+00:00</updated>
   <id>http://nkwsqyyzx.github.io/</id>
   <author>
     <name><![CDATA[圣西罗小球童]]></name>
@@ -16,9 +16,12 @@
   <entry>
     <title type="html"><![CDATA[代码高亮]]></title>
     <link href="http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight/"/>
-    <updated>2013-05-15T21:09:00+08:00</updated>
+    <updated>2013-05-15T21:09:00+01:00</updated>
     <id>http://nkwsqyyzx.github.io/blog/2013/05/15/code-highlight</id>
-    <content type="html"><![CDATA[<p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.</strong></p>
+    <content type="html"><![CDATA[<!--more-->
+
+
+<p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.</strong></p>
 
 <p>先来一段JavaScript高亮示例(使用3个反`):
 ```javascript JavaScript代码</p>

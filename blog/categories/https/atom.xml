@@ -4,7 +4,7 @@
   <title><![CDATA[Category: https | 禁区弧顶的挨踢男]]></title>
   <link href="http://nkwsqyyzx.github.io/blog/categories/https/atom.xml" rel="self"/>
   <link href="http://nkwsqyyzx.github.io/"/>
-  <updated>2013-11-19T13:43:54+08:00</updated>
+  <updated>2014-02-28T05:05:50+00:00</updated>
   <id>http://nkwsqyyzx.github.io/</id>
   <author>
     <name><![CDATA[圣西罗小球童]]></name>
@@ -16,9 +16,12 @@
   <entry>
     <title type="html"><![CDATA[Fuck The Great Fucking Wall]]></title>
     <link href="http://nkwsqyyzx.github.io/blog/2013/11/19/fuck-the-great-fucking-wall/"/>
-    <updated>2013-11-19T13:16:00+08:00</updated>
+    <updated>2013-11-19T13:16:00+00:00</updated>
     <id>http://nkwsqyyzx.github.io/blog/2013/11/19/fuck-the-great-fucking-wall</id>
     <content type="html"><![CDATA[<p>参考上一篇文章<a href="/blog/2013/05/20/open-current-url-with-https/">使用https重新打开当前网页</a>，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。</p>
+
+<!--more-->
+
 
 <p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.再次吐槽下Vimperator Script的开发文档是那么那么的不全。</p>
 
@@ -71,11 +74,14 @@ autocmd DOMLoad .* ReloadWithHttps &lt;tab&gt;
   <entry>
     <title type="html"><![CDATA[使用https重新打开当前网页]]></title>
     <link href="http://nkwsqyyzx.github.io/blog/2013/05/20/open-current-url-with-https/"/>
-    <updated>2013-05-20T00:38:00+08:00</updated>
+    <updated>2013-05-20T00:38:00+01:00</updated>
     <id>http://nkwsqyyzx.github.io/blog/2013/05/20/open-current-url-with-https</id>
     <content type="html"><![CDATA[<p>由于众所周知的原因,使用Google搜索的时候搜索结果可能会被阻断.这种情况在https下面可能会稍稍好一些.如果你不幸中招,可以使用https再试一下.</p>
 
 <p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.比较麻烦的是Vimperator官方的插件文档好像并不是很容易找到.反正我是没有找到啦.</p>
+
+<!--more-->
+
 
 <p>以下是相关代码,还是比较简单的.
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (OpenWithHttps.js)</span> <a href='/downloads/code/OpenWithHttps.js'>download</a></figcaption>

@@ -9,7 +9,7 @@
   <meta name="author" content="圣西罗小球童">
 
   
-  <meta name="description" content="参考上一篇文章使用https重新打开当前网页，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。 基于Vimperator可以很方便的使用plugin来实现此功能. &hellip;">
+  <meta name="description" content="参考上一篇文章使用https重新打开当前网页，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2013-11-19T13:16:00+08:00" pubdate data-updated="true">Nov 19<span>th</span>, 2013</time>
+<time datetime="2013-11-19T13:16:00+00:00" pubdate data-updated="true">Nov 19<span>th</span>, 2013</time>
         
       </p>
     
@@ -96,61 +96,12 @@
 
   <div class="entry-content"><p>参考上一篇文章<a href="/blog/2013/05/20/open-current-url-with-https/">使用https重新打开当前网页</a>，上一篇中实现了在被阻断之后用https重试的快捷命令，但最近被折腾的实在是烦不胜烦，于是想到了更进一步，如果被阻断，自动用https重试一次。</p>
 
-<p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.再次吐槽下Vimperator Script的开发文档是那么那么的不全。</p>
-
-<p>在测试过程中你可以在Vimperator的normal模式下输入如下命令进行调试：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>:js liberator.echo<span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">)</span>;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>总之是比较苦逼的工作。各种查看网页元素之后，确定了在网页中有errorTitleText的标签元素就初步认为是被阻断的url的简单思路。然后使用正则表达式判断当前的url是否满足被阻断url的特征，如果满足则使用https替换当前url重新打开。</p>
-
-<p>以下是相关代码,还是比较简单的.</p>
-
-<figure class='code'><figcaption><span> (ReloadWithHttps.js)</span> <a href='/downloads/code/ReloadWithHttps.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">commands</span><span class="p">.</span><span class="nx">addUserCommand</span> <span class="p">(</span><span class="s2">&quot;ReloadWithHttps&quot;</span><span class="p">,</span> <span class="s2">&quot;reload url with https&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">tabs</span><span class="p">.</span><span class="nx">getTab</span><span class="p">(</span><span class="nx">args</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">linkedBrowser</span><span class="p">.</span><span class="nx">contentDocument</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">let</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;errorTitleText&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">target</span><span class="p">){</span>
-</span><span class='line'>        <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">URL</span><span class="p">;</span>
-</span><span class='line'>        <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="sr">/^http:\/\/www\.google\.com.+url\?.+url=/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="kd">let</span> <span class="nx">httpsUrl</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^http:/</span><span class="p">,</span><span class="s2">&quot;https:&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="nx">liberator</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">httpsUrl</span><span class="p">);</span>
-</span><span class='line'>            <span class="k">return</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="cm">/* vim:se sts=4 sw=4 et: */</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>自定义命令完成之后，在你的vimperatorrc中加入如下自动命令配置就可以向GFW阻断google搜索结果说拜拜了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>autocmd DOMLoad .* ReloadWithHttps &lt;tab&gt;
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/19/fuck-the-great-fucking-wall/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -177,7 +128,7 @@
   
 
 
-<time datetime="2013-05-20T00:38:00+08:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
+<time datetime="2013-05-20T00:38:00+01:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
         
       </p>
     
@@ -188,57 +139,12 @@
 
 <p>基于<a href="http://www.vimperator.org/vimperator">Vimperator</a>可以很方便的使用plugin来实现此功能.Vimperator的插件是基于JavaScript编写的.比较麻烦的是Vimperator官方的插件文档好像并不是很容易找到.反正我是没有找到啦.</p>
 
-<p>以下是相关代码,还是比较简单的.</p>
-
-<figure class='code'><figcaption><span> (OpenWithHttps.js)</span> <a href='/downloads/code/OpenWithHttps.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">commands</span><span class="p">.</span><span class="nx">addUserCommand</span> <span class="p">(</span><span class="s2">&quot;OpenWithHttps&quot;</span><span class="p">,</span> <span class="s2">&quot;open url with https&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">URL</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;https:&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="kd">var</span> <span class="nx">httpsUrl</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^http:/</span><span class="p">,</span><span class="s2">&quot;https:&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="nx">openURL</span><span class="p">(</span><span class="nx">httpsUrl</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">else</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="nx">liberator</span><span class="p">.</span><span class="nx">echo</span><span class="p">(</span><span class="s2">&quot;Current is https,perhaps you would try proxy.&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/* vim:se sts=4 sw=4 et: */</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>拿到当前buffer的URL,将URL替换为https后重新打开.</p>
-
-<p>当然,如果在你的vimperatorrc中加上</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>:map ,s :OpenWithHttps&lt;CR&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用起来就更加得心应手了.</p>
-
-<p>Enjoy!</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/20/open-current-url-with-https/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -265,79 +171,19 @@
   
 
 
-<time datetime="2013-05-15T21:09:00+08:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
+<time datetime="2013-05-15T21:09:00+01:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Windows系统需要注意的是,<strong>Python只能使用2.7的版本.</strong></p>
-
-<p>先来一段JavaScript高亮示例(使用3个反`):</p>
-
-<figure class='code'><figcaption><span>JavaScript代码</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;this is javascript test string.&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Objc代码(使用codeblock):</p>
-
-<figure class='code'><figcaption><span>objective-c代码 </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">print:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">string</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span><span class="n">string</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>遗憾的是现在软件中的markdown编辑器都不支持代码高亮预览功能.</p>
-
-<p>下面引入一段包含在文件中的C#代码:</p>
-
-<figure class='code'><figcaption><span> (testcode.cs)</span> <a href='/downloads/code/testcode.cs'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
-</span><span class='line'><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">namespace</span> <span class="nn">Test</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">interface</span> <span class="n">TestInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">/// &lt;summary&gt;</span>
-</span><span class='line'>        <span class="c1">/// interface introduction</span>
-</span><span class='line'>        <span class="c1">/// &lt;/summary&gt;</span>
-</span><span class='line'>        <span class="c1">/// &lt;param name=&quot;stream&quot;&gt;the stream to store data.&lt;/param&gt;</span>
-</span><span class='line'>        <span class="c1">/// &lt;param name=&quot;data&quot;&gt;the data to store.&lt;/param&gt;</span>
-</span><span class='line'>        <span class="k">void</span> <span class="nf">Test</span><span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span><span class="p">,</span> <span class="n">T</span> <span class="n">data</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以上就是加入代码高亮最常用的3中方法.其中3个反`看起来更简洁明了.codeblock方式更适合阅读.使用文件方式引入则适合大段代码插入.</p>
-</div>
+  <div class="entry-content"></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/15/code-highlight/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -364,7 +210,7 @@
   
 
 
-<time datetime="2013-05-09T22:43:00+08:00" pubdate data-updated="true">May 9<span>th</span>, 2013</time>
+<time datetime="2013-05-09T22:43:00+01:00" pubdate data-updated="true">May 9<span>th</span>, 2013</time>
         
       </p>
     
@@ -404,91 +250,19 @@
   
 
 
-<time datetime="2013-04-18T19:42:00+08:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+<time datetime="2013-04-18T19:42:00+01:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>考虑这样一个问题:店家有127个苹果,若干箱子,问如何将苹果装入最少的箱子使得第一个来购买苹果的人无论买多少个都可以整箱交给他.进一步的,说明需要多少个箱子以及每个箱子装入多少个苹果才能满足要求.</p>
-
-<p>这个问题本身带有明确的暗示性,当然也就显得比较简单了.在面试这种不需要严格证明的情况下很容易得出结果.那就是按照1,2,4,8,16,32,64的装法就可以满足要求.在不需要严格逻辑推理下能感觉这就是答案.事实上的确是的.</p>
-
-<h4>更普遍的问题:n个苹果怎么装呢?</h4>
-
-<p>设A(n)为n个苹果分装所需要的箱子数目,序列B(n)(1),B(n)(2),&#8230;B(n)(A(n))为每个箱子中的苹果数目.首先来看几个比较小的n:<br/>
-n=1,A(1) = 1.只需要一个箱子.<br/>
-n=2,A(2) = 2.需要2个箱子每个箱子装1个.<br/>
-n=3,A(3) = 2.需要2个箱子,一个箱子1个,另一个2个.<br/>
-n=4,A(4) = 3.需要3个箱子,一个箱子装2个,另外两个每个箱子装1个.<br/>
-n=5,A(5) = 3.需要3个箱子,一个箱子装3个,另外两个箱子每个装1个.<br/></p>
-
-<p>自然的,考虑找到一个递推关系,设n个苹果满足条件需要的箱子数为A(n),则有如下结论:</p>
-
-<pre><code>A(n+1) &gt;= A(n).(1)
-</code></pre>
-
-<p>采用反证法容易证明.(若存在小于A(n)的箱子能满足A(n+1)的要求,任意购买小于等于n的个数也能有这种分装方法解决.这与A(n)的定义是矛盾的.)</p>
-
-<p>但是,得出(1)这个结论对于问题一点突破性的进展都没有!</p>
-
-<p>换一种常用的分治思路就会发现,只要解决了n个苹果的分装问题,2n个苹果的分装只需要简单的再加一个箱子,这个箱子装入n个苹果就可以满足2n个苹果的分装要求.而且这种分装方法为解决2n个苹果的分装问题的一个解决办法.</p>
-
-<p>下面给出证明:<br/>
-由于对于任意的正整数k&lt;=n,都存在一个B序列的子列满足该子列和为k.那么对于任意的m&lt;=2n有如下两种情况:<br/>
-1. m&lt;=n,直接有B序列的子列满足子列和为k.如果购买m个直接由对应的箱子满足要求.<br/>
-2. m>n,则存在B序列的子列满足子列和为m-n,这样把这个子列和n放在一起构成一个新的子列,则新子列和为m.这样这些箱子满足要求.<br/>
-另一方面,必然有A(2n)>A(n),这是因为由于需要满足n个苹果的购买方案,2n的分装方案的箱子序列必然包含n的分装方案.否则无法解决n个苹果的购买.但n个苹果的方案中每个箱子里苹果个数都小于n.要购买m>n个苹果时必然需要另一个大于等于n个苹果的箱子.也就是必然有</p>
-
-<pre><code>A(2n)&gt;A(n).(2)
-</code></pre>
-
-<p>这样综合上面1和2,对于已有的n个苹果的解决方案B(1),B(2),&#8230;B(A(n)),再加上一个装n个苹果的箱子就构成2n个苹果的解决方案.且该方案为最少箱子数的解决方案.(由(1)有A(2n)>=A(2n-1)&#8230;>=A(n))得出:</p>
-
-<pre><code>A(2n) = A(n) + 1.(3)
-</code></pre>
-
-<p>由A(1) = 1及(2)式可以计算出:</p>
-
-<pre><code>A(2^n) = n + 1.(4)
-</code></pre>
-
-<p>这样有:</p>
-
-<pre><code>n+1 = A(2^n)&lt;=A(2^n+1)&lt;=A(2^+2)&lt;=...&lt;=A(2^n+2^n)&lt;A(2^(n+1)) = n + 2.(5)
-</code></pre>
-
-<p>其中最后一个小于号由(2)得到结论.<br/>
-综合上述得到关于A(n)的结论:</p>
-
-<pre><code>A(n) = k,当2^(k-1) &lt;= n &lt;2^k;
-</code></pre>
-
-<p>回过头来看(3)式的推理过程,只要有了n个苹果的分装方案,再加一个装n+1个苹果的箱子就构成2n+1个苹果的方案.所以使用计算机很容易得出序列B.下面是伪代码,采用递归方式实现.</p>
-
-<pre><code>void OutPut(int k)
-{
-    if (k == 1)
-    {
-        print "1";
-        return;
-    }
-    if (k % 2 == 1)
-    {
-        print (k/2+1) . " ";
-    }
-    else
-    {
-        print (k/2) . " ";
-    }
-    OutPut(k/2);
-}
-</code></pre>
-
-<p>第一次写这种博客,且很久没有做数学方面的推理,逻辑思维难免混乱.请看官多指教.</p>
-</div>
+  <div class="entry-content"></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/04/18/the-first-page-is-for-a-math-problem/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -515,7 +289,7 @@ n=5,A(5) = 3.需要3个箱子,一个箱子装3个,另外两个箱子每个装1�
   
 
 
-<time datetime="2013-04-15T03:36:00+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+<time datetime="2013-04-15T03:36:00+01:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
         
       </p>
     
@@ -557,7 +331,7 @@ rake setup_github_pages.
   
 
 
-<time datetime="2013-04-13T00:18:00+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2013</time>
+<time datetime="2013-04-13T00:18:00+01:00" pubdate data-updated="true">Apr 13<span>th</span>, 2013</time>
         
       </p>
     
@@ -623,7 +397,7 @@ RubyInstaller总是失败啥的.还有在cygwin中使用的时候总是不方便
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - 圣西罗小球童 -
+  Copyright &copy; 2014 - 圣西罗小球童 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

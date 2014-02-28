@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 二进制 | 禁区弧顶的挨踢男]]></title>
   <link href="http://nkwsqyyzx.github.io/blog/categories/er-jin-zhi/atom.xml" rel="self"/>
   <link href="http://nkwsqyyzx.github.io/"/>
-  <updated>2013-11-19T13:43:54+08:00</updated>
+  <updated>2014-02-28T05:05:50+00:00</updated>
   <id>http://nkwsqyyzx.github.io/</id>
   <author>
     <name><![CDATA[圣西罗小球童]]></name>
@@ -16,9 +16,12 @@
   <entry>
     <title type="html"><![CDATA[若干苹果的分装问题]]></title>
     <link href="http://nkwsqyyzx.github.io/blog/2013/04/18/the-first-page-is-for-a-math-problem/"/>
-    <updated>2013-04-18T19:42:00+08:00</updated>
+    <updated>2013-04-18T19:42:00+01:00</updated>
     <id>http://nkwsqyyzx.github.io/blog/2013/04/18/the-first-page-is-for-a-math-problem</id>
-    <content type="html"><![CDATA[<p>考虑这样一个问题:店家有127个苹果,若干箱子,问如何将苹果装入最少的箱子使得第一个来购买苹果的人无论买多少个都可以整箱交给他.进一步的,说明需要多少个箱子以及每个箱子装入多少个苹果才能满足要求.</p>
+    <content type="html"><![CDATA[<!--more-->
+
+
+<p>考虑这样一个问题:店家有127个苹果,若干箱子,问如何将苹果装入最少的箱子使得第一个来购买苹果的人无论买多少个都可以整箱交给他.进一步的,说明需要多少个箱子以及每个箱子装入多少个苹果才能满足要求.</p>
 
 <p>这个问题本身带有明确的暗示性,当然也就显得比较简单了.在面试这种不需要严格证明的情况下很容易得出结果.那就是按照1,2,4,8,16,32,64的装法就可以满足要求.在不需要严格逻辑推理下能感觉这就是答案.事实上的确是的.</p>
 
