@@ -7,7 +7,6 @@ commands.addUserCommand ("ReloadWithHttps", "reload url with https", function (a
         if (b) {
             let httpsUrl = url.replace(/^http:/,"https:");
             liberator.open(httpsUrl);
-            return;
         }
     }
 });
